@@ -9,31 +9,52 @@
             angular.filter.label = function(reaction) {
                 return reaction.text[0];
             }
+            function ReactionController() {
+            }
+            ReactionController.prototype = {
+                addText: function() {
+                    this.reactions[this.selected_reaction].text.push("");
+                }
+            }
+            function ReplyController() {
+            }
+            ReplyController.prototype = {
+                addReaction: function() {
+                    this.reply.reactions.push(0);
+                }
+            }
         </script>
     </head>
     <body>
         <hr/ ng:init="
             reactions = [
-            {text:['Witam','Jesteś tu sam?'],
-                replies:[
-                    {text:'Oczywiście że jestem sam.'},
-                    {text:'Przyszedłem z ekipą zrobić ci wjazd na chatę.'}
+                {
+                    text:['Witam','Jesteś tu sam?'],
+                    replies:[
+                        {
+                            text:'Oczywiście że jestem sam.',
+                            reactions: [0,0]
+                        },
+                        {text:'Przyszedłem z ekipą zrobić ci wjazd na chatę.'}
                     ]
-            },
-            {
-                text:['Stój złodzieju'],
-                replies:[]
-            }
+                },
+                {
+                    text:['Stój złodzieju'],
+                    replies:[]
+                }
             ]">
+            <!--
+            -->
 
             <select name='selected_reaction' style="display:block;">
             <option ng:repeat='reaction in reactions' value="{{$index}}">{{reaction|label}}</option>
         </select>
         <button id="add_reaction">Add new reaction</button>
-        <div>
-            <textarea name='reactions[selected_reaction].text[$index]' ng:repeat="text in reactions[selected_reaction].text">
-            </textarea>
-            <div style="border:1em solid;" ng:repeat="reply in reactions[selected_reaction].replies">
+        <div ng:controller="ReactionController">
+            <textarea name='reactions[selected_reaction].text[$index]' ng:repeat="text in reactions[selected_reaction].text"></textarea>
+            <a href="" ng:click="addText()">Add</a>
+
+            <div ng:controller="ReplyController" style="border:1em solid;" ng:repeat="reply in reactions[selected_reaction].replies">
                 <textarea name='reply.text'>
                 </textarea>
 
@@ -46,9 +67,10 @@
                 </textarea>
 
                 Reactions:
-                <select name='reply.reaction'>
-                    <option ng:repeat='reaction in reactions' value="{{$index}}">{{reaction|label}}</option>
+                <select name='reply.reactions[$index]' ng:repeat="reaction in reply.reactions">
+                    <option ng:repeat='possibleReaction in reactions' value="{{$index}}">{{possibleReaction|label}}</option>
                 </select>
+                <a href="" ng:click="addReaction()">Add</a>
 
             </div>
         </div>
