@@ -1,0 +1,6 @@
+#!/usr/bin/perl
+use Dancer;
+get '/' => sub {
+    "Hello there";
+};
+dance;

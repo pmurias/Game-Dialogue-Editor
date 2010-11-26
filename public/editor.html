@@ -1,0 +1,60 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html xmlns:ng="http://angularjs.org">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/> 
+        <script type="text/javascript"
+            src="http://angularjs.org/ng/js/angular-debug.js" ng:autobind>
+        </script>
+        <script>
+            angular.filter.label = function(reaction) {
+                return reaction.text[0];
+            }
+        </script>
+    </head>
+    <body>
+        <hr/ ng:init="
+            reactions = [
+            {text:['Witam','Jesteś tu sam?'],
+                replies:[
+                    {text:'Oczywiście że jestem sam.'},
+                    {text:'Przyszedłem z ekipą zrobić ci wjazd na chatę.'}
+                    ]
+            },
+            {
+                text:['Stój złodzieju'],
+                replies:[]
+            }
+            ]">
+
+            <select name='selected_reaction' style="display:block;">
+            <option ng:repeat='reaction in reactions' value="{{$index}}">{{reaction|label}}</option>
+        </select>
+        <button id="add_reaction">Add new reaction</button>
+        <div>
+            <textarea name='reactions[selected_reaction].text[$index]' ng:repeat="text in reactions[selected_reaction].text">
+            </textarea>
+            <div style="border:1em solid;" ng:repeat="reply in reactions[selected_reaction].replies">
+                <textarea name='reply.text'>
+                </textarea>
+
+                Conditions:
+                <textarea name='reply.conditions'>
+                </textarea>
+
+                Actions:
+                <textarea name='reply.actions'>
+                </textarea>
+
+                Reactions:
+                <select name='reply.reaction'>
+                    <option ng:repeat='reaction in reactions' value="{{$index}}">{{reaction|label}}</option>
+                </select>
+
+            </div>
+        </div>
+
+        <pre>
+            {{reactions}}
+        </pre>
+ </body>
+</html>
