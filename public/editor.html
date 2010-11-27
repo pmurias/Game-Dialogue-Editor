@@ -9,6 +9,7 @@
             angular.filter.label = function(reaction) {
                 return reaction.text[0];
             }
+
             function ReactionController() {
             }
             ReactionController.prototype = {
@@ -16,6 +17,7 @@
                     this.reactions[this.selected_reaction].text.push("");
                 }
             }
+
             function ReplyController() {
             }
             ReplyController.prototype = {
