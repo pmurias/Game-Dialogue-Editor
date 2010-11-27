@@ -55,7 +55,10 @@
                             text:['Oczywiście że jestem sam.'],
                             reactions: [0,0]
                         },
-                        {text:['Przyszedłem z ekipą zrobić ci wjazd na chatę.']}
+                        {
+                            text:['Przyszedłem z ekipą zrobić ci wjazd na chatę.'],
+                            reactions: []
+                        }
                     ]
                 },
                 {
@@ -69,11 +72,22 @@
         </select>
         <button id="add_reaction" ng:click="addReaction()">Add new reaction</button>
         <div ng:controller="ReactionController">
-            <textarea name='reactions[selected_reaction].text[$index]' ng:repeat="text in reactions[selected_reaction].text"></textarea>
+
+            <span ng:repeat="text in reactions[selected_reaction].text">
+                <textarea name='reactions[selected_reaction].text[$index]'></textarea>
+                <a href="" ng:click="reactions[selected_reaction].text.splice($index,1)">Remove</a>
+            </span>
+
             <a href="" ng:click="addText()">Add</a>
 
-            <div ng:controller="ReplyController" style="border:1em solid;" ng:repeat="reply in reactions[selected_reaction].replies">
-                <textarea name='reply.text[$index]' ng:repeat="text in reply.text"></textarea>
+            <span ng:controller="ReplyController" ng:repeat="reply in reactions[selected_reaction].replies">
+            <div  style="border:1em solid;" >
+
+                <span ng:repeat="text in reply.text">
+                    <textarea name='reply.text[$index]' ></textarea>
+                    <a href="" ng:click="reply.text.splice($index,1)">Remove</a>
+                </span>
+
                 <a href="" ng:click="addText()">Add</a>
 
                 Conditions:
@@ -85,12 +99,18 @@
                 </textarea>
 
                 Reactions:
-                <select name='reply.reactions[$index]' ng:repeat="reaction in reply.reactions">
-                    <option ng:repeat='possibleReaction in reactions' value="{{$index}}">{{possibleReaction|label}}</option>
-                </select>
+                <span ng:repeat="reaction in reply.reactions">
+                    <select name='reply.reactions[$index]' >
+                        <option ng:repeat='possibleReaction in reactions' value="{{$index}}">{{possibleReaction|label}}</option>
+                    </select>
+                    <a href="" ng:click="reply.reactions.splice($index,1)">Remove</a>
+                </span>
                 <a href="" ng:click="addReaction()">Add</a>
 
+
             </div>
+            <a href="" ng:click="reactions[selected_reaction].replies.splice($index,1)">Remove</a>
+            </span>
             <button ng:click="addReply()">Add new reply</button>
         </div>
 
