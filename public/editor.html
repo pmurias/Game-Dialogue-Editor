@@ -15,19 +15,36 @@
             ReactionController.prototype = {
                 addText: function() {
                     this.reactions[this.selected_reaction].text.push("");
+                },
+                addReply: function() {
+                    this.reactions[this.selected_reaction].replies.push({text:[""],reactions:[]});
                 }
+            };
+
+            function ReactionsController() {
             }
+            ReactionsController.prototype = {
+                addReaction: function() {
+                    this.reactions.push({
+                        text:[''],
+                        replies:[]
+                    });
+                }
+            };
 
             function ReplyController() {
             }
             ReplyController.prototype = {
                 addReaction: function() {
                     this.reply.reactions.push(0);
+                },
+                addText: function() {
+                    this.reply.text.push("");
                 }
-            }
+            };
         </script>
     </head>
-    <body>
+    <body ng:controller="ReactionsController">
         <hr/ ng:init="
             selected_reaction = 0;
             reactions = [
@@ -35,10 +52,10 @@
                     text:['Witam','Jesteś tu sam?'],
                     replies:[
                         {
-                            text:'Oczywiście że jestem sam.',
+                            text:['Oczywiście że jestem sam.'],
                             reactions: [0,0]
                         },
-                        {text:'Przyszedłem z ekipą zrobić ci wjazd na chatę.'}
+                        {text:['Przyszedłem z ekipą zrobić ci wjazd na chatę.']}
                     ]
                 },
                 {
@@ -50,14 +67,14 @@
             <select name='selected_reaction' style="display:block;">
             <option ng:repeat='reaction in reactions' value="{{$index}}">{{reaction|label}}</option>
         </select>
-        <button id="add_reaction">Add new reaction</button>
+        <button id="add_reaction" ng:click="addReaction()">Add new reaction</button>
         <div ng:controller="ReactionController">
             <textarea name='reactions[selected_reaction].text[$index]' ng:repeat="text in reactions[selected_reaction].text"></textarea>
             <a href="" ng:click="addText()">Add</a>
 
             <div ng:controller="ReplyController" style="border:1em solid;" ng:repeat="reply in reactions[selected_reaction].replies">
-                <textarea name='reply.text'>
-                </textarea>
+                <textarea name='reply.text[$index]' ng:repeat="text in reply.text"></textarea>
+                <a href="" ng:click="addText()">Add</a>
 
                 Conditions:
                 <textarea name='reply.conditions'>
@@ -74,6 +91,7 @@
                 <a href="" ng:click="addReaction()">Add</a>
 
             </div>
+            <button ng:click="addReply()">Add new reply</button>
         </div>
 
         <pre>
