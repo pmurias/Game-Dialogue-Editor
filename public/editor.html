@@ -29,6 +29,7 @@
     </head>
     <body>
         <hr/ ng:init="
+            selected_reaction = 0;
             reactions = [
                 {
                     text:['Witam','Jesteś tu sam?'],
@@ -45,8 +46,6 @@
                     replies:[]
                 }
             ]">
-            <!--
-            -->
 
             <select name='selected_reaction' style="display:block;">
             <option ng:repeat='reaction in reactions' value="{{$index}}">{{reaction|label}}</option>
