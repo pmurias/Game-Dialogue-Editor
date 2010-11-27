@@ -28,7 +28,9 @@
                 addReaction: function() {
                     this.reactions.push({
                         text:[''],
-                        replies:[]
+                        replies:[],
+                        action: [''],
+                        conditions: ['']
                     });
                 }
             };
@@ -50,6 +52,8 @@
             selected_reaction = 0;
             reactions = [
                 {
+                    action: [''],
+                    conditions: [''],
                     text:['Witam','Jesteś tu sam?'],
                     replies:[
                         {
@@ -63,6 +67,8 @@
                     ]
                 },
                 {
+                    action: [''],
+                    conditions: [''],
                     text:['Stój złodzieju'],
                     replies:[]
                 }
@@ -74,7 +80,9 @@
         <button id="add_reaction" ng:click="addReaction()">Add new reaction</button>
         <div ng:controller="ReactionController">
 
-            <span ng:repeat="text in reactions[selected_reaction].text">
+            Conditions: <textarea name='reactions[selected_reaction].conditions[0]'></textarea>
+            Actions: <textarea name='reactions[selected_reaction].action[0]'></textarea>
+            Text: <span ng:repeat="text in reactions[selected_reaction].text">
                 <textarea name='reactions[selected_reaction].text[$index]'></textarea>
                 <a href="" ng:click="reactions[selected_reaction].text.splice($index,1)">Remove</a>
             </span>
