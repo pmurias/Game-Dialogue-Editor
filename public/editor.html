@@ -29,8 +29,8 @@
                     this.reactions.push({
                         text:[''],
                         replies:[],
-                        action: [''],
-                        conditions: ['']
+                        action: ['foo'],
+                        conditions: ['bar']
                     });
                 }
             };
@@ -49,36 +49,15 @@
     </head>
     <body ng:controller="ReactionsController">
         <span/ ng:init="
+            reactions = [];
             selected_reaction = 0;
-            reactions = [
-                {
-                    action: [''],
-                    conditions: [''],
-                    text:['Witam','Jesteś tu sam?'],
-                    replies:[
-                        {
-                            text:['Oczywiście że jestem sam.'],
-                            reactions: [0,0]
-                        },
-                        {
-                            text:['Przyszedłem z ekipą zrobić ci wjazd na chatę.'],
-                            reactions: []
-                        }
-                    ]
-                },
-                {
-                    action: [''],
-                    conditions: [''],
-                    text:['Stój złodzieju'],
-                    replies:[]
-                }
-            ]">
+            ">
 
             <select name='selected_reaction' style="display:block;">
             <option ng:repeat='reaction in reactions' value="{{$index}}">{{reaction|label}}</option>
         </select>
         <button id="add_reaction" ng:click="addReaction()">Add new reaction</button>
-        <div ng:controller="ReactionController">
+        <div ng:show="reactions.length != 0" ng:controller="ReactionController">
 
             Conditions: <textarea name='reactions[selected_reaction].conditions[0]'></textarea>
             Actions: <textarea name='reactions[selected_reaction].action[0]'></textarea>
