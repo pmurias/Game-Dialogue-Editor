@@ -8,7 +8,12 @@
         </script>
         <script>
             angular.filter.label = function(reaction) {
-                return reaction.text[0];
+                if (reaction.text.length == 0 || reaction.text[0] == '') {
+                    return 'reaction with empty text';
+                } else {
+                    return reaction.text[0];
+                }
+
             }
 
             function ReactionController() {
@@ -29,8 +34,8 @@
                     this.reactions.push({
                         text:[''],
                         replies:[],
-                        action: ['foo'],
-                        conditions: ['bar']
+                        action: [''],
+                        conditions: ['']
                     });
                 }
             };
