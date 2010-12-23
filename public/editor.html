@@ -6,6 +6,8 @@
         <script type="text/javascript"
             src="http://code.angularjs.org/angular-0.9.7.js" ng:autobind>
         </script>
+
+
         <script>
             angular.filter.label = function(reaction) {
                 if (reaction.text.length == 0 || reaction.text[0] == '') {
@@ -107,6 +109,7 @@ quote(reply.text[t]) + ',' + default_duration + '));\n';
             };
         </script>
     </head>
+    <div> Show actions and conditions: <input type="checkbox" checked="checked" name="showCode"/> </div>
     <body ng:controller="ReactionsController">
         <span/ ng:init="
             reactions = [];
@@ -128,10 +131,10 @@ quote(reply.text[t]) + ',' + default_duration + '));\n';
                 <a href="" ng:click="addText()">Add</a>
 	    </div>
 
-	    <div>
+	    <div ng:show="showCode">
 		Conditions: <textarea name='reactions[selected_reaction].conditions[0]'></textarea>
             </div>
-            <div>
+            <div ng:show="showCode">
 		Actions: <textarea name='reactions[selected_reaction].action[0]'></textarea>
 	    </div>
 
@@ -149,12 +152,12 @@ quote(reply.text[t]) + ',' + default_duration + '));\n';
 		</div>
 
 
-		<div>
+		<div ng:show="showCode">
 		     	Conditions:
 			<textarea name='reply.conditions'></textarea>
 		</div>
 
-		<div>
+		<div ng:show="showCode">
 			Actions:
 			<textarea name='reply.actions'></textarea>
 		</div>
