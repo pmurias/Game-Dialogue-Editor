@@ -72,6 +72,13 @@ ReactionController.prototype = {
     }
 };
 
+angular.service('myApplication',function($resource) {
+    this.res = $resource('/dialogue');
+//    alert(this.res);
+},{$inject:['$resource'],$creation:'eager'});
+
+//angular.service('myApplication',function() { alert('there'); },{inject:[]});
+
 function ReactionsController() {
 }
 ReactionsController.prototype = {
@@ -82,6 +89,15 @@ ReactionsController.prototype = {
             action: [''],
             conditions: ['']
         });
+    },
+    fetch: function() {
+        var result;
+        var scope = this;
+        console.debug(scope);
+        result = this.res.get(function() {scope.reactions = result.reactions});
+    },
+    save: function() {
+        this.res.save({reactions:this.reactions});
     }
 };
 
@@ -95,3 +111,4 @@ ReplyController.prototype = {
         this.reply.text.push("");
     }
 };
+

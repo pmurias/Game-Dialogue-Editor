@@ -1,6 +1,18 @@
 #!/usr/bin/perl
 use Dancer;
+use File::Slurp qw(read_file write_file);
+set logger=>'file';
 get '/' => sub {
-    "Hello there";
+    send_file('editor.html');
+};
+set serializer => 'JSON';
+get '/dialogue' => sub {
+    my $file = read_file('dialogue');
+    content_type 'application/json';
+    debug $file;
+    $file;
+};
+post '/dialogue' => sub {
+    write_file('dialogue',request->body);
 };
 dance;

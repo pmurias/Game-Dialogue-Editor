@@ -87,10 +87,13 @@
             <button ng:click="addReply()">Add new reply</button>
         </div>
 
+        <pre> {{dialogue}} </pre>
+        <button ng:click="fetch()">fetch</button>
+        <button ng:click="save()">save</button>
         <pre>{{reactions|csharp}}</pre>
 
-<!--        <pre>
-            {{reactions}}
-        </pre> -->
+        <pre>
+            {{foo|json}}
+        </pre> 
  </body>
 </html>
