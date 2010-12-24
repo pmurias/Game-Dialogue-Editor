@@ -25,22 +25,22 @@
 
 	    <div>
                 <div>Text:</div>
-                <div ng:repeat="text in reactions[selected_reaction].text">
-			<textarea name='reactions[selected_reaction].text[$index]'></textarea>
-		     	<a href="" ng:click="reactions[selected_reaction].text.splice($index,1)">Remove</a>
+                <div ng:repeat="text in reaction().text">
+			<textarea name='reaction().text[$index]'></textarea>
+		     	<a href="" ng:click="reaction().text.splice($index,1)">Remove</a>
 	     	</div>
                 <a href="" ng:click="addText()">Add</a>
 	    </div>
 
 	    <div ng:show="showCode">
-		Conditions: <textarea name='reactions[selected_reaction].conditions[0]'></textarea>
+		Conditions: <textarea name='reaction().conditions'></textarea>
             </div>
             <div ng:show="showCode">
-		Actions: <textarea name='reactions[selected_reaction].action[0]'></textarea>
+		Actions: <textarea name='reaction().action'></textarea>
 	    </div>
 
 
-            <span ng:controller="ReplyController" ng:repeat="reply in reactions[selected_reaction].replies">
+            <span ng:controller="ReplyController" ng:repeat="reply in reaction().replies">
             <div  style="border:1em solid;" >
 
 		<div>
@@ -82,7 +82,7 @@
 
 
             </div>
-            <a href="" ng:click="reactions[selected_reaction].replies.splice($index,1)">Remove</a>
+            <a href="" ng:click="reaction().replies.splice($index,1)">Remove</a>
             </span>
             <button ng:click="addReply()">Add new reply</button>
         </div>

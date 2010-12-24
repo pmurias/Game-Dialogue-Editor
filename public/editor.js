@@ -69,6 +69,15 @@ ReactionController.prototype = {
     },
     addReply: function() {
         this.reactions[this.selected_reaction].replies.push({text:[""],reactions:[]});
+    },
+    reaction: function() {
+        console.debug(this.selected_reaction);
+        console.debug(this.reactions);
+        if (this.reactions.length) {
+            return this.reactions[this.selected_reaction];
+        } else {
+            return {};
+        }
     }
 };
 
@@ -86,8 +95,8 @@ ReactionsController.prototype = {
         this.reactions.push({
             text:[''],
             replies:[],
-            action: [''],
-            conditions: ['']
+            action: '',
+            conditions: ''
         });
     },
     fetch: function() {
