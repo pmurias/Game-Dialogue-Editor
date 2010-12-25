@@ -26,17 +26,17 @@
 	    <div>
                 <div>Text:</div>
                 <div ng:repeat="text in reaction().text">
-			<textarea name='reaction().text[$index]'></textarea>
+			<textarea rows=4 cols=80 name='reaction().text[$index]'></textarea>
 		     	<a href="" ng:click="reaction().text.splice($index,1)">Remove</a>
 	     	</div>
                 <a href="" ng:click="addText()">Add</a>
 	    </div>
 
 	    <div ng:show="showCode">
-		Conditions: <textarea name='reaction().conditions'></textarea>
+		Conditions: <textarea  rows=4 cols=80 name='reaction().conditions'></textarea>
             </div>
             <div ng:show="showCode">
-		Actions: <textarea name='reaction().action'></textarea>
+		Actions: <textarea  rows=4 cols=80 name='reaction().action'></textarea>
 	    </div>
 
 
@@ -46,7 +46,7 @@
 		<div>
                         <div>Text:</div>
 			<div ng:repeat="text in reply.text">
-			<textarea name='reply.text[$index]' ></textarea>
+			<textarea rows=4 cols=80  name='reply.text[$index]' ></textarea>
 			<a href="" ng:click="reply.text.splice($index,1)">Remove</a>
 			</div>
 			<a href="" ng:click="addText()">Add</a>
@@ -55,12 +55,12 @@
 
 		<div ng:show="showCode">
 		     	Conditions:
-			<textarea name='reply.conditions'></textarea>
+			<textarea  rows=4 cols=80 name='reply.conditions'></textarea>
 		</div>
 
 		<div ng:show="showCode">
 			Actions:
-			<textarea name='reply.actions'></textarea>
+			<textarea  rows=4 cols=80 name='reply.actions'></textarea>
 		</div>
 
 		<div>
