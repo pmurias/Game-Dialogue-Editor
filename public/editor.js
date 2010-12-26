@@ -31,11 +31,11 @@ angular.filter.csharp = function(reactions) {
 
         }
 
-        if (reactions[i].conditions != '') {
+        if (reactions[i].conditions) {
             code += r+ ".Conditions += ( () => "+ reactions[i].conditions + ");\n";
         }
-        if (reactions[i].actions != '') {
-            code += r+ ".Actions += ( () => "+ reactions[i].conditions + ");\n";
+        if (reactions[i].actions) {
+            code += r+ ".Actions += ( () => "+ reactions[i].actions + ");\n";
         }
 
         for (var j in reactions[i].replies) {
@@ -44,11 +44,11 @@ angular.filter.csharp = function(reactions) {
             code += 'TalkReply '+replyId + ' = new TalkReply();\n'
             code += r + '.Replies.Add(' + replyId + ');\n';
 
-            if (reply.conditions != '') {
-                code += r+ ".Conditions += ( () => "+ reply[i].conditions + ");\n";
+            if (reply.conditions) {
+                code += replyId+ ".Conditions += ( () => "+ reply.conditions + ");\n";
             }
-            if (reply.actions != '') {
-                code += r+ ".Actions += ( () => "+ reply.actions + ");\n";
+            if (reply.actions) {
+                code += replyId+ ".Actions += ( () => "+ reply.actions + ");\n";
             }
 
             if (reply.ending) {
@@ -57,15 +57,12 @@ angular.filter.csharp = function(reactions) {
             for (var t in reply.text) {
                 code +=  replyId+'.Text.Add(new TalkText(' + quote(reply.text[t]) + ',' + default_duration + '));\n';
             }
-    	var reactionsId = genId();
-    	code += "TalkReactions "+reactionsId+" = new TalkReactions();\n";
+            var reactionsId = genId();
+            code += "TalkReactions "+reactionsId+" = new TalkReactions();\n";
             for (var h in reply.reactions) {
                 code += reactionsId + ".Reactions.Add(" + ids[reply.reactions[h]] + ");\n";
             }
-    	code += replyId+".Response = "+reactionsId+";\n";
-            if (reply.conditions) {
-                code += replyId + ".Conditions += ( () => "+ reply.conditions + ")\n";
-            }
+            code += replyId+".Response = "+reactionsId+";\n";
         }
 
     }
