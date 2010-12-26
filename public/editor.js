@@ -29,9 +29,13 @@ angular.filter.csharp = function(reactions) {
         for (var j in reactions[i].text) {
             code += r+'.Text.Add(new TalkText(' + quote(reactions[i].text[j]) + ',' + default_duration + '));\n';
 
-            if (reactions[i].conditions != '') {
-                code += r+ ".Conditions += ( () => "+ reactions[i].conditions + ")";
-            }
+        }
+
+        if (reactions[i].conditions != '') {
+            code += r+ ".Conditions += ( () => "+ reactions[i].conditions + ");\n";
+        }
+        if (reactions[i].actions != '') {
+            code += r+ ".Actions += ( () => "+ reactions[i].conditions + ");\n";
         }
 
         for (var j in reactions[i].replies) {
@@ -39,6 +43,14 @@ angular.filter.csharp = function(reactions) {
             var replyId = genId();
             code += 'TalkReply '+replyId + ' = new TalkReply();\n'
             code += r + '.Replies.Add(' + replyId + ');\n';
+
+            if (reply.conditions != '') {
+                code += r+ ".Conditions += ( () => "+ reply[i].conditions + ");\n";
+            }
+            if (reply.actions != '') {
+                code += r+ ".Actions += ( () => "+ reply.actions + ");\n";
+            }
+
             if (reply.ending) {
     		code += replyId + '.IsEnding = true;\n';
             }
