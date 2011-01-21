@@ -16,13 +16,21 @@ function quote(str) {
 }
 
 default_duration = '3.0f';
-angular.filter.csharp = function(reactions) {
+angular.filter.csharp = function(reactionsAndStuff) {
+    var reactions = reactionsAndStuff.reactions;
     var code = '';
     var ids = [];
     for (var i in reactions) {
         ids[i] = genId();
         code += "TalkReaction "+ids[i]+" = new TalkReaction();\n";
     }
+ 
+    var root = reactionsAndStuff.root_reaction_id;
+    code += "TalkReactions "+ root + ";\n";
+    for (var i in reactionsAndStuff.root_reactions) {
+	code += root + ".Reactions.Add(" + ids[i] + ");\n";
+    }
+	
 
     for (var i in reactions) {
         var r = ids[i];
@@ -116,6 +124,9 @@ ReactionsController.prototype = {
     },
     save: function() {
         this.res.save({reactions:this.reactions});
+    },
+    reactionsAndStuff: function() {
+	return {reactions:this.reactions,root_reactions:this.root_reactions,root_reaction_id:this.root_reaction_id};
     }
 };
 
