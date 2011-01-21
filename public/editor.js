@@ -19,16 +19,18 @@ default_duration = '3.0f';
 angular.filter.csharp = function(reactionsAndStuff) {
     var reactions = reactionsAndStuff.reactions;
     var code = '';
+    var root = reactionsAndStuff.root_reaction_id;
+    code += "public static TalkReactions "+ root + ";\n";
+    code += "public static void Init"+root+"() {\n";
+    code += root + " = new TalkReactions();\n";
     var ids = [];
     for (var i in reactions) {
         ids[i] = genId();
         code += "TalkReaction "+ids[i]+" = new TalkReaction();\n";
     }
  
-    var root = reactionsAndStuff.root_reaction_id;
-    code += "TalkReactions "+ root + ";\n";
     for (var i in reactionsAndStuff.root_reactions) {
-	code += root + ".Reactions.Add(" + ids[i] + ");\n";
+	code += root + ".Reactions.Add(" + ids[reactionsAndStuff.root_reactions[i]] + ");\n";
     }
 	
 
@@ -74,6 +76,7 @@ angular.filter.csharp = function(reactionsAndStuff) {
         }
 
     }
+    code += "}\n"
     return code;
 }
 
