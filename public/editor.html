@@ -18,7 +18,7 @@
 	    root_reactions = [];
             ">
 
-	    <div style="margin-bottom:20px">
+	    <div style="border:1em solid;margin-bottom: 1em;">
 		Reaction ID: <input type="text" name="root_reaction_id"/>
 		<div ng:repeat="reaction in root_reactions">
 			<select name='root_reactions[$index]' >
@@ -39,7 +39,8 @@
                 <div>Text:</div>
                 <div ng:repeat="text in reaction().text">
 			<textarea rows=4 cols=80 name='reaction().text[$index]'></textarea>
-		     	<a href="" ng:click="reaction().text.splice($index,1)">Remove</a>
+			<div> <input type="text" name='reaction().sound[$index]'></input> </div>
+		     	<a href="" ng:click="removeText($index)">Remove</a>
 	     	</div>
                 <a href="" ng:click="addText()">Add</a>
 	    </div>
@@ -59,7 +60,10 @@
                         <div>Text:</div>
 			<div ng:repeat="text in reply.text">
 			<textarea rows=4 cols=80  name='reply.text[$index]' ></textarea>
-			<a href="" ng:click="reply.text.splice($index,1)">Remove</a>
+
+			<div> <input type="text" name='reply.sound[$index]'></input> </div>
+
+			<a href="" ng:click="removeText($index)">Remove</a>
 			</div>
 			<a href="" ng:click="addText()">Add</a>
 		</div>

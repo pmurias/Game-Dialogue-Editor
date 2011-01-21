@@ -36,8 +36,9 @@ angular.filter.csharp = function(reactionsAndStuff) {
 
     for (var i in reactions) {
         var r = ids[i];
+
         for (var j in reactions[i].text) {
-            code += r+'.Text.Add(new TalkText(' + quote(reactions[i].text[j]) + ',' + default_duration + '));\n';
+            code += r+'.Text.Add(new TalkText(' + quote(reactions[i].text[j]) + ',' + quote(reactions[i].sound[j]) + '));\n';
 
         }
 
@@ -64,8 +65,10 @@ angular.filter.csharp = function(reactionsAndStuff) {
             if (reply.ending) {
     		code += replyId + '.IsEnding = true;\n';
             }
+
+	    reply.sound = [""];
             for (var t in reply.text) {
-                code +=  replyId+'.Text.Add(new TalkText(' + quote(reply.text[t]) + ',' + default_duration + '));\n';
+                code +=  replyId+'.Text.Add(new TalkText(' + quote(reply.text[t]) + ',' + quote(reply.sound[t]) + '));\n';
             }
             var reactionsId = genId();
             code += "TalkReactions "+reactionsId+" = new TalkReactions();\n";
@@ -86,9 +89,14 @@ function ReactionController() {
 ReactionController.prototype = {
     addText: function() {
         this.reactions[this.selected_reaction].text.push("");
+        this.reactions[this.selected_reaction].sound.push("");
+    },
+    removeText: function(index) {
+	this.reactions[this.selected_reactions].text.splice(index,1);
+	this.reactions[this.selected_reactions].sound.splice(index,1);
     },
     addReply: function() {
-        this.reactions[this.selected_reaction].replies.push({text:[""],reactions:[]});
+        this.reactions[this.selected_reaction].replies.push({text:[""],sound:[""],reactions:[]});
     },
     reaction: function() {
         if (this.reactions.length) {
@@ -112,6 +120,7 @@ ReactionsController.prototype = {
     addReaction: function() {
         this.reactions.push({
             text:[''],
+            sound:[''],
             replies:[],
             action: '',
             conditions: ''
@@ -145,6 +154,11 @@ ReplyController.prototype = {
     },
     addText: function() {
         this.reply.text.push("");
-    }
+        this.reply.sound.push("");
+    },
+    removeText: function() {
+	this.reply.text.splice(index,1);
+	this.reply.sound.splice(index,1);
+   }
 };
 
