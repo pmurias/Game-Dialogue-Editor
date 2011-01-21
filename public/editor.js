@@ -80,8 +80,6 @@ ReactionController.prototype = {
         this.reactions[this.selected_reaction].replies.push({text:[""],reactions:[]});
     },
     reaction: function() {
-        console.debug(this.selected_reaction);
-        console.debug(this.reactions);
         if (this.reactions.length) {
             return this.reactions[this.selected_reaction];
         } else {
@@ -111,7 +109,6 @@ ReactionsController.prototype = {
     fetch: function() {
         var result;
         var scope = this;
-        console.debug(scope);
         result = this.res.get(function() {scope.reactions = result.reactions});
     },
     save: function() {
