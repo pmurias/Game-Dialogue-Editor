@@ -120,10 +120,14 @@ ReactionsController.prototype = {
     fetch: function() {
         var result;
         var scope = this;
-        result = this.res.get(function() {scope.reactions = result.reactions});
+        result = this.res.get(function() {
+            scope.reactions = result.reactions;
+	    scope.root_reactions = result.root_reactions;
+            scope.root_reaction_id = result.root_reaction_id;
+	});
     },
     save: function() {
-        this.res.save({reactions:this.reactions});
+        this.res.save(this.reactionsAndStuff());
     },
     reactionsAndStuff: function() {
 	return {reactions:this.reactions,root_reactions:this.root_reactions,root_reaction_id:this.root_reaction_id};
