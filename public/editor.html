@@ -15,7 +15,19 @@
         <span/ ng:init="
             reactions = [];
             selected_reaction = 0;
+	    root_reactions = [];
             ">
+
+	    <div style="margin-bottom:20px">
+		Reaction ID: <input type="text" name="root_reaction_id"/>
+		<div ng:repeat="reaction in root_reactions">
+			<select name='root_reactions[$index]' >
+				<option ng:repeat='possibleReaction in reactions' value="{{$index}}">{{possibleReaction|label}}</option>
+			</select>
+		      	<a href="" ng:click="root_reactions.splice($index,1)">Remove</a>
+		</div>
+                <a href="" ng:click="addRootReaction()">Add</a>
+	    </div>
 
             <select name='selected_reaction' style="display:block;">
             <option ng:repeat='reaction in reactions' value="{{$index}}">{{reaction|label}}</option>

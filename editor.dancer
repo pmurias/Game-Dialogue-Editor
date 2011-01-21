@@ -5,7 +5,7 @@ set logger=>'file';
 get '/' => sub {
     send_file('editor.html');
 };
-set serializer => 'JSON';
+#set serializer => 'JSON';
 get '/dialogue' => sub {
     my $file = read_file('dialogue');
     content_type 'application/json';

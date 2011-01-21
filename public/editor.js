@@ -106,6 +106,9 @@ ReactionsController.prototype = {
             conditions: ''
         });
     },
+    addRootReaction: function() {
+        this.root_reactions.push(0);
+    },
     fetch: function() {
         var result;
         var scope = this;
