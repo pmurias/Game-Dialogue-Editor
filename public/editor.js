@@ -12,7 +12,7 @@ function genId() {
     return "id"+(++id);
 }
 function quote(str) {
-    return '"'+str+'"';
+    return '"'+str.replace(/\n/g,"\\n")+'"';
 }
 
 default_duration = '3.0f';
