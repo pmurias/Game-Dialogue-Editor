@@ -11,29 +11,33 @@
         <script src="editor.js" type="text/javascript"></script>
     </head>
     <div> Show actions and conditions: <input type="checkbox" checked="checked" name="showCode"/> </div>
-    <body ng:controller="ReactionsController">
-        <span/ ng:init="
-            reactions = [];
-            selected_reaction = 0;
-	    root_reactions = [];
-            ">
+    <body ng:controller="DialoguesController" ng:init="
+        selected_dialogue = 0;dialogues = [];">
+
+        <button id="add_reaction" ng:click="addDialogue()">Add Dialogue</button>
+
+        <select name='selected_dialogue' style="display:block;">
+            <option ng:repeat='dialogue in dialogues' value="{{$index}}">{{dialogues[$index].root_reaction_id}}</option>
+
+        </select>
+        <span/ ng:controller="ReactionsController" ng:show="dialogues.length != 0">
 
 	    <div style="border:1em solid;margin-bottom: 1em;">
-		Reaction ID: <input type="text" name="root_reaction_id"/>
-		<div ng:repeat="reaction in root_reactions">
-			<select name='root_reactions[$index]' >
-				<option ng:repeat='possibleReaction in reactions' value="{{$index}}">{{possibleReaction|label}}</option>
+		Reaction ID: <input type="text" name="dialogue().root_reaction_id"/>
+		<div ng:repeat="reaction in dialogue().root_reactions">
+			<select name='dialogue().root_reactions[$index]' >
+				<option ng:repeat='possibleReaction in dialogue().reactions' value="{{$index}}">{{possibleReaction|label}}</option>
 			</select>
-		      	<a href="" ng:click="root_reactions.splice($index,1)">Remove</a>
+		      	<a href="" ng:click="dialogue().root_reactions.splice($index,1)">Remove</a>
 		</div>
                 <a href="" ng:click="addRootReaction()">Add</a>
 	    </div>
 
             <select name='selected_reaction' style="display:block;">
-            <option ng:repeat='reaction in reactions' value="{{$index}}">{{reaction|label}}</option>
+            <option ng:repeat='reaction in dialogue().reactions' value="{{$index}}">{{reaction|label}}</option>
         </select>
         <button id="add_reaction" ng:click="addReaction()">Add new reaction</button>
-        <div ng:show="reactions.length != 0" ng:controller="ReactionController">
+        <div ng:show="dialogue().reactions.length != 0" ng:controller="ReactionController">
 
 	    <div>
                 <div>Text:</div>
@@ -89,7 +93,7 @@
                 Reactions:
                 <div ng:repeat="reaction in reply.reactions">
                     <select name='reply.reactions[$index]' >
-                        <option ng:repeat='possibleReaction in reactions' value="{{$index}}">{{possibleReaction|label}}</option>
+                        <option ng:repeat='possibleReaction in dialogue().reactions' value="{{$index}}">{{possibleReaction|label}}</option>
                     </select>
                     <a href="" ng:click="reply.reactions.splice($index,1)">Remove</a>
                 </div>
@@ -103,13 +107,13 @@
             <button ng:click="addReply()">Add new reply</button>
         </div>
 
-        <pre> {{dialogue}} </pre>
-        <button ng:click="fetch()">fetch</button>
-        <button ng:click="save()">save</button>
-        <pre>{{reactionsAndStuff()|csharp}}</pre>
+        <pre>{{dialogue()|csharp}}</pre>
 
         <pre>
             {{foo|json}}
         </pre> 
+    </span>
+    <button ng:click="fetch()">fetch</button>
+    <button ng:click="save()">save</button>
  </body>
 </html>

@@ -99,8 +99,8 @@ ReactionController.prototype = {
         this.reactions[this.selected_reaction].replies.push({text:[""],sound:[""],reactions:[]});
     },
     reaction: function() {
-        if (this.reactions.length) {
-            return this.reactions[this.selected_reaction];
+        if (this.dialogue().reactions.length) {
+            return this.dialogue().reactions[this.selected_reaction];
         } else {
             return {};
         }
@@ -114,11 +114,37 @@ angular.service('myApplication',function($resource) {
 
 //angular.service('myApplication',function() { alert('there'); },{inject:[]});
 
+function DialoguesController() {
+}
+DialoguesController.prototype = {
+    addDialogue: function() {
+        this.dialogues.push({reactions:[],selected_reaction:0,root_reactions:[],root_reaction_id:''})
+    },
+    dialogue: function() {
+        if (this.dialogues.length) {
+            return this.dialogues[this.selected_dialogue];
+        } else {
+            return {reactions:[],selected_reaction:0,root_reactions:[],root_reaction_id:''};
+        }
+    },
+    fetch: function() {
+        var result;
+        var scope = this;
+        result = this.res.get(function() {
+            scope.dialogues = result.dialogues;
+	});
+    },
+    save: function() {
+        console.debug(this.dialogues);
+        this.res.save({dialogues:this.dialogues});
+    }
+}
+
 function ReactionsController() {
 }
 ReactionsController.prototype = {
     addReaction: function() {
-        this.reactions.push({
+        this.dialogue().reactions.push({
             text:[''],
             sound:[''],
             replies:[],
@@ -127,19 +153,7 @@ ReactionsController.prototype = {
         });
     },
     addRootReaction: function() {
-        this.root_reactions.push(0);
-    },
-    fetch: function() {
-        var result;
-        var scope = this;
-        result = this.res.get(function() {
-            scope.reactions = result.reactions;
-	    scope.root_reactions = result.root_reactions;
-            scope.root_reaction_id = result.root_reaction_id;
-	});
-    },
-    save: function() {
-        this.res.save(this.reactionsAndStuff());
+        //this.$eval('dialogue()').root_reactions.push(0);
     },
     reactionsAndStuff: function() {
 	return {reactions:this.reactions,root_reactions:this.root_reactions,root_reaction_id:this.root_reaction_id};
