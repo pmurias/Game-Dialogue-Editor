@@ -14,6 +14,8 @@
     <div> Show audio: <input type="checkbox" checked="checked" name="showAudio"/> </div>
     <div> Show C#: <input type="checkbox" checked="checked" name="showCSharp"/> </div>
     <div> Show NPC Text : <input type="checkbox" checked="checked" name="showNPCTexts"/> </div>
+
+    <div> Show Player Text : <input type="checkbox" checked="checked" name="showPlayerTexts"/> </div>
     <body ng:controller="DialoguesController" ng:init="
         selected_dialogue = 0;selected_reaction=0;dialogues = [];">
 
@@ -41,12 +43,12 @@
         </select>
         <button id="add_reaction" ng:click="addReaction()">Add new reaction</button>
         <div ng:show="dialogue().reactions.length != 0" ng:controller="ReactionController">
-
+	<span style="background-color:#cee1df;">
 	    <div>
                 <div>Text:</div>
                 <div ng:repeat="text in reaction().text">
 			<textarea rows=4 cols=80 name='reaction().text[$index]'></textarea>
-			<div ng:show="showAudio"> <input type="text" name='reaction().sound[$index]'></input> </div>
+			<span ng:show="showAudio"> <input type="text" name='reaction().sound[$index]'></input> </span>
 		     	<a href="" ng:click="removeText($index)">Remove</a>
 	     	</div>
                 <a href="" ng:click="addText()">Add</a>
@@ -58,17 +60,18 @@
             <div ng:show="showCode">
 		Actions: <textarea  rows=4 cols=80 name='reaction().actions'></textarea>
 	    </div>
+	</span>
 
 
             <span ng:controller="ReplyController" ng:repeat="reply in reaction().replies">
-            <div  style="border:1em solid;" >
+            <div  style="border:1em solid;background-color:#e1cece;" >
 
 		<div>
                         <div>Text:</div>
 			<div ng:repeat="text in reply.text">
 			<textarea rows=4 cols=80  name='reply.text[$index]' ></textarea>
 
-			<div ng:show="showAudio"> <input type="text" name='reply.sound[$index]'></input> </div>
+			<span ng:show="showAudio"> <input type="text" name='reply.sound[$index]'></input> </span>
 
 			<a href="" ng:click="removeText($index)">Remove</a>
 			</div>
@@ -84,11 +87,6 @@
 		<div ng:show="showCode">
 			Actions:
 			<textarea  rows=4 cols=80 name='reply.actions'></textarea>
-		</div>
-
-		<div>
-			End Dialog:
-			<input type="checkbox" name="reply.ending">
 		</div>
 
 
@@ -114,13 +112,28 @@
 
 
         <div ng:show="showNPCTexts">
-        Teksty NPC'a:
+	
+	<h3> NPC Texts </h3>
+        
 
 	<div  ng:repeat="text in allNPCTexts()">
-                <div ng:show="showAudio"> <input type="text" name='text.soundArray[text.index]'></input> </div> 
 		<textarea rows=4 cols=80  name='text.textArray[text.index]'></textarea>
+                <span ng:show="showAudio"> <input type="text" name='text.soundArray[text.index]'></input> </span> 
         </div>
-    </div>
+
+	</div>
+
+        <div ng:show="showPlayerTexts">
+
+	<h3> Player Texts: </h3>
+
+	<div  ng:repeat="text in allPlayerTexts()">
+		<textarea rows=4 cols=80  name='text.textArray[text.index]'></textarea>
+                <span ng:show="showAudio"> <input type="text" name='text.soundArray[text.index]'></input> </span> 
+        </div>
+	
+	</div>
+
     </span>
     <button ng:click="fetch()">fetch</button>
     <button ng:click="save()">save</button>

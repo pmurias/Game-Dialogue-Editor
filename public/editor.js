@@ -63,11 +63,6 @@ angular.filter.csharp = function(reactionsAndStuff) {
                 code += replyId+ ".Actions += ( () => "+ reply.actions + ");\n";
             }
 
-            if (reply.ending) {
-    		code += replyId + '.IsEnding = true;\n';
-            }
-
-	    reply.sound = [""];
             for (var t in reply.text) {
                 code +=  replyId+'.Text.Add(new TalkText(' + quote(reply.text[t]) + ',' + quote(reply.sound[t]) + '));\n';
             }
@@ -134,6 +129,19 @@ DialoguesController.prototype = {
             var r = this.dialogue().reactions[i];
             for (var j in r.text) {
                 result.push({soundArray:r.sound,textArray:r.text,index:j});
+            }
+        }
+        return result;
+    },
+    allPlayerTexts : function() {
+        var result = []
+        for (var i in this.dialogue().reactions) {
+            var reaction = this.dialogue().reactions[i];
+            for (var j in reaction.replies) {
+		var r = reaction.replies[j];
+		for (var h in r.text) {
+			result.push({soundArray:r.sound,textArray:r.text,index:h});
+		}
             }
         }
         return result;
