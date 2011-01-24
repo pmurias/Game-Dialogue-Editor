@@ -88,15 +88,15 @@ function ReactionController() {
 }
 ReactionController.prototype = {
     addText: function() {
-        this.reactions[this.selected_reaction].text.push("");
-        this.reactions[this.selected_reaction].sound.push("");
+        this.dialogue().reactions[this.selected_reaction].text.push("");
+        this.dialogue().reactions[this.selected_reaction].sound.push("");
     },
     removeText: function(index) {
-	this.reactions[this.selected_reactions].text.splice(index,1);
-	this.reactions[this.selected_reactions].sound.splice(index,1);
+	this.dialogue().reactions[this.selected_reactions].text.splice(index,1);
+	this.dialogue().reactions[this.selected_reactions].sound.splice(index,1);
     },
     addReply: function() {
-        this.reactions[this.selected_reaction].replies.push({text:[""],sound:[""],reactions:[]});
+        this.dialogue().reactions[this.selected_reaction].replies.push({text:[""],sound:[""],reactions:[]});
     },
     reaction: function() {
         if (this.dialogue().reactions.length) {
@@ -155,9 +155,6 @@ ReactionsController.prototype = {
     addRootReaction: function() {
         //this.$eval('dialogue()').root_reactions.push(0);
     },
-    reactionsAndStuff: function() {
-	return {reactions:this.reactions,root_reactions:this.root_reactions,root_reaction_id:this.root_reaction_id};
-    }
 };
 
 function ReplyController() {
