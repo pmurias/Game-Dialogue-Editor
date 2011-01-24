@@ -12,6 +12,7 @@ function genId() {
     return "id"+(++id);
 }
 function quote(str) {
+    if (!str) return '""';
     return '"'+str.replace(/\n/g,"\\n")+'"';
 }
 
@@ -153,7 +154,8 @@ ReactionsController.prototype = {
         });
     },
     addRootReaction: function() {
-        //this.$eval('dialogue()').root_reactions.push(0);
+	console.debug(this.dialogue().root_reactions);
+        this.dialogue().root_reactions.push(0);
     },
 };
 

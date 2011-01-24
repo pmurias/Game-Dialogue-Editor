@@ -11,6 +11,7 @@
         <script src="editor.js" type="text/javascript"></script>
     </head>
     <div> Show actions and conditions: <input type="checkbox" checked="checked" name="showCode"/> </div>
+    <div> Show audio: <input type="checkbox" checked="checked" name="showAudio"/> </div>
     <body ng:controller="DialoguesController" ng:init="
         selected_dialogue = 0;selected_reaction=0;dialogues = [];">
 
@@ -43,7 +44,7 @@
                 <div>Text:</div>
                 <div ng:repeat="text in reaction().text">
 			<textarea rows=4 cols=80 name='reaction().text[$index]'></textarea>
-			<div> <input type="text" name='reaction().sound[$index]'></input> </div>
+			<div ng:show="showAudio"> <input type="text" name='reaction().sound[$index]'></input> </div>
 		     	<a href="" ng:click="removeText($index)">Remove</a>
 	     	</div>
                 <a href="" ng:click="addText()">Add</a>
@@ -65,7 +66,7 @@
 			<div ng:repeat="text in reply.text">
 			<textarea rows=4 cols=80  name='reply.text[$index]' ></textarea>
 
-			<div> <input type="text" name='reply.sound[$index]'></input> </div>
+			<div ng:show="showAudio"> <input type="text" name='reply.sound[$index]'></input> </div>
 
 			<a href="" ng:click="removeText($index)">Remove</a>
 			</div>
