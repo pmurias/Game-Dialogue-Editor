@@ -128,6 +128,16 @@ DialoguesController.prototype = {
             return {reactions:[],selected_reaction:0,root_reactions:[],root_reaction_id:''};
         }
     },
+    allNPCTexts : function() {
+        var result = []
+        for (var i in this.dialogue().reactions) {
+            var r = this.dialogue().reactions[i];
+            for (var j in r.text) {
+                result.push({soundArray:r.sound,textArray:r.text,index:j});
+            }
+        }
+        return result;
+    },
     fetch: function() {
         var result;
         var scope = this;

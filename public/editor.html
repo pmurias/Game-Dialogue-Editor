@@ -12,6 +12,8 @@
     </head>
     <div> Show actions and conditions: <input type="checkbox" checked="checked" name="showCode"/> </div>
     <div> Show audio: <input type="checkbox" checked="checked" name="showAudio"/> </div>
+    <div> Show C#: <input type="checkbox" checked="checked" name="showCSharp"/> </div>
+    <div> Show NPC Text : <input type="checkbox" checked="checked" name="showNPCTexts"/> </div>
     <body ng:controller="DialoguesController" ng:init="
         selected_dialogue = 0;selected_reaction=0;dialogues = [];">
 
@@ -108,11 +110,17 @@
             <button ng:click="addReply()">Add new reply</button>
         </div>
 
-        <pre>{{dialogue()|csharp}}</pre>
+        <pre ng:show="showCSharp">{{dialogue()|csharp}}</pre>
 
-        <pre>
-            {{foo|json}}
-        </pre> 
+
+        <div ng:show="showNPCTexts">
+        Teksty NPC'a:
+
+	<div  ng:repeat="text in allNPCTexts()">
+                <div ng:show="showAudio"> <input type="text" name='text.soundArray[text.index]'></input> </div> 
+		<textarea rows=4 cols=80  name='text.textArray[text.index]'></textarea>
+        </div>
+    </div>
     </span>
     <button ng:click="fetch()">fetch</button>
     <button ng:click="save()">save</button>
