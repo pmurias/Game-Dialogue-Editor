@@ -34,6 +34,7 @@
 				<option ng:repeat='possibleReaction in dialogue().reactions' value="{{$index}}">{{possibleReaction|label}}</option>
 			</select>
 		      	<a href="" ng:click="dialogue().root_reactions.splice($index,1)">Remove</a>
+		      	<a href="" ng:click="selectReaction(dialogue().root_reactions[$index]);">Goto</a>
 		</div>
                 <a href="" ng:click="addRootReaction()">Add</a>
 	    </div>
@@ -97,9 +98,10 @@
                         <option ng:repeat='possibleReaction in dialogue().reactions' value="{{$index}}">{{possibleReaction|label}}</option>
                     </select>
                     <a href="" ng:click="reply.reactions.splice($index,1)">Remove</a>
+		    <a href="" ng:click="selectReaction(reaction);">Goto</a>
                 </div>
             </div>
-                <a href="" ng:click="addReaction()">Add</a>
+                <a href="" ng:click="addReaction(reply.reactions[$index])">Add</a>
 
 
             </div>

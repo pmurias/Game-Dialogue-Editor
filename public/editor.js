@@ -156,6 +156,10 @@ DialoguesController.prototype = {
     save: function() {
         console.debug(this.dialogues);
         this.res.save({dialogues:this.dialogues});
+    },
+    selectReaction: function(index) {
+        scroll(0,0);
+        this.selected_reaction = index;
     }
 }
 
